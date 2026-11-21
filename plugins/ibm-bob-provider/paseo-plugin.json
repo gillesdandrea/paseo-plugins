@@ -1,0 +1,10 @@
+{
+  "id": "ibm-bob-provider",
+  "name": "IBM Bob",
+  "description": "Run IBM Bob Shell as a Paseo agent through its ACP server, with its API key in the macOS Keychain and its team budget in Usage.",
+  "icon": "icon.png",
+  "media": [],
+  "requirements": {
+    "paseo": ">=0.16.2"
+  }
+}
