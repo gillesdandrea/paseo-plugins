@@ -110,7 +110,8 @@ async function writeSettings(file: string, settings: Settings, indent: string): 
   const mode = existsSync(target) ? (await stat(target)).mode & 0o777 : undefined;
   const temporary = `${target}.paseo-${process.pid}-${randomUUID()}.tmp`;
   try {
-    await writeFile(temporary, `${JSON.stringify(settings, null, indent)}\n`, "utf8");
+    // Owner-only from creation, so a private file's content is never readable by others mid-write.
+    await writeFile(temporary, `${JSON.stringify(settings, null, indent)}\n`, { encoding: "utf8", mode: 0o600, flag: "wx" });
     if (mode !== undefined) await chmod(temporary, mode);
     await rename(temporary, target);
   } catch (error) {

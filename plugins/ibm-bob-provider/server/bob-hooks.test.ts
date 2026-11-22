@@ -66,6 +66,13 @@ describe("Bob terminal hooks", () => {
     await expect(bobHooksInstalled(target)).resolves.toBe(true);
   });
 
+  it("restores a settings file's original mode after writing it owner-only", async () => {
+    const file = await settingsFile(userHooks);
+    await chmod(file, 0o644);
+    await applyBobHooks(true, file);
+    expect((await stat(file)).mode & 0o777).toBe(0o644);
+  });
+
   it("applies only the latest value when changes pile up, one at a time", async () => {
     const applied: boolean[] = [];
     let active = 0;
