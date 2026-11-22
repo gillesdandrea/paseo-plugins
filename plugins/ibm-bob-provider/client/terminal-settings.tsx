@@ -20,7 +20,7 @@ export function TerminalSettings(_props: PluginSurfaceProps) {
     if (settings.status !== "ready") return;
     setSaveError(undefined);
     const saved = await settings.save({ ...settings.values, bobHooks: next }, settings.revision);
-    if (!saved) setSaveError("The setting changed elsewhere. Try again.");
+    if (!saved) setSaveError("Another app changed this setting at the same time. Try again.");
     // The daemon applies the change after the save; read the result back shortly after.
     setTimeout(() => void queryClient.invalidateQueries({ queryKey: STATUS_KEY }), 500);
   };
@@ -34,7 +34,7 @@ export function TerminalSettings(_props: PluginSurfaceProps) {
       <SettingsCard>
         <SettingsSwitch
           label="Bob terminal hooks"
-          hint="Shows running, needs-input and finished status for Bob running in a Paseo terminal. Adds hooks to Bob's settings and removes them when turned off; your other Bob hooks stay as they are."
+          hint="Shows whether Bob in a Paseo terminal is running, needs input or has finished. Turning this on adds hooks to ~/.bob/settings/settings.json; turning it off removes them and leaves your other Bob hooks."
           value={enabled}
           disabled={!ready}
           onValueChange={(next) => void toggle(next)}

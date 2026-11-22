@@ -57,7 +57,7 @@ export function createKeychainStore(
   const supported = platform === "darwin";
   const unsupported = () =>
     new Error(
-      `The Keychain needs a macOS daemon. Set ${API_KEY_ENV} under agents.providers.bob.env in the daemon's config.json instead.`,
+      `The Keychain is available only when the daemon runs on macOS. Set ${API_KEY_ENV} under agents.providers.bob.env in the daemon's config.json instead.`,
     );
   return {
     supported,
@@ -70,7 +70,7 @@ export function createKeychainStore(
     },
     async write(key) {
       if (!supported) throw unsupported();
-      if (!isValidApiKey(key)) throw new Error("The API key has unexpected characters or length.");
+      if (!isValidApiKey(key)) throw new Error("The API key must be 8 to 4096 characters long and use only letters, digits and . _ ~ + / = : -");
       const command = `add-generic-password -U -s ${SERVICE} -a ${ACCOUNT} -l "IBM Bob API key (Paseo)" -w "${key}"\n`;
       const result = await run("security", ["-i"], command);
       if (result.code !== 0 || result.stderr.trim()) throw failure("save", result);

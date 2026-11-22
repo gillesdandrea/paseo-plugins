@@ -162,13 +162,13 @@ export function createBobUsageSource(
           if (result.status === 401 || result.status === 403) {
             // Only the us-east API is known, so a valid key for another region is rejected the same way.
             const refreshedBy =
-              "Check the API key in the IBM Bob plugin settings. Usage is read from Bob's us-east API only, so keys for other regions are rejected too";
+              "Check the API key in the IBM Bob plugin settings. The plugin reads usage from Bob's us-east API only, so an account in another region may be rejected with a valid key";
             return { status: "unavailable", problem: { kind: "rejected", status: result.status, refreshedBy } };
           }
           return { status: "error", error: `Bob profile request failed (${result.status}): ${result.message}` };
         }
         const profile = profileSchema.safeParse(result.profile);
-        if (!profile.success) return { status: "error", error: "Bob profile response has an unexpected shape" };
+        if (!profile.success) return { status: "error", error: "Bob's profile API returned data in an unexpected format" };
         return reportFromProfile(profile.data);
       } catch (error) {
         return { status: "error", error: error instanceof Error ? error.message : String(error) };

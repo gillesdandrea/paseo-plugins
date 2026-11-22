@@ -4,7 +4,7 @@
 
 | Plugin | What it does |
 | --- | --- |
-| [`ibm-bob-provider`](plugins/ibm-bob-provider) | IBM Bob Shell as an ACP agent provider, with a Keychain-stored API key and Bob team budgets in Usage |
+| [`ibm-bob-provider`](plugins/ibm-bob-provider) | Runs IBM Bob Shell as a Paseo agent over ACP, with an API key in the macOS Keychain, Bob team budgets in Usage, context-window data and terminal status |
 
 ## Layout
 
@@ -42,7 +42,7 @@ paseo plugin reload ibm-bob-provider
 paseo plugin logs ibm-bob-provider
 ```
 
-Straight from GitHub:
+Install from GitHub, without the registry:
 
 ```bash
 paseo plugin add git:gillesdandrea/paseo-plugins:plugins/ibm-bob-provider

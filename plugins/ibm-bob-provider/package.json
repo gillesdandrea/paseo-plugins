@@ -9,6 +9,7 @@
     "OVERVIEW.md",
     "icon.svg",
     "icon.png",
+    "media/",
     "index.client.tsx",
     "index.server.ts",
     "client/",

@@ -32,7 +32,7 @@ describe("Keychain API key store", () => {
   it("rejects keys that could break out of the quoted command", async () => {
     const security = fakeSecurity(0);
     await expect(createKeychainStore(security.run, "darwin").write('abc" ; rm -rf ~ "')).rejects.toThrow(
-      "unexpected characters",
+      "must be 8 to 4096 characters",
     );
     expect(security.calls).toEqual([]);
   });

@@ -18,11 +18,11 @@ type Status = { supported: boolean; stored: boolean; daemonEnv: boolean };
 function describe(status: Status | undefined): string {
   if (!status) return "Checking the Keychain…";
   if (!status.supported) {
-    return "The Keychain needs a macOS daemon. Set BOBSHELL_API_KEY under agents.providers.bob.env in the daemon's config.json instead.";
+    return "The Keychain is available only when the daemon runs on macOS. Set BOBSHELL_API_KEY under agents.providers.bob.env in the daemon's config.json instead.";
   }
-  if (status.daemonEnv) return "The daemon environment sets BOBSHELL_API_KEY, which takes precedence over the Keychain.";
-  if (status.stored) return "A key is stored in the macOS Keychain. New and reopened Bob sessions use it.";
-  return "No key stored. Bob uses its own login unless a key is set.";
+  if (status.daemonEnv) return "The daemon's environment sets BOBSHELL_API_KEY, so Bob agents use that key instead of the Keychain.";
+  if (status.stored) return "A key is stored in the macOS Keychain. New and reopened Bob agents use it.";
+  return "No key is stored. Bob signs in with its own IBMid login.";
 }
 
 function message(error: unknown): string | undefined {
@@ -60,7 +60,7 @@ export function ApiKeySettings(_props: PluginSurfaceProps) {
         <SettingsInput
           ref={input}
           label="BOBSHELL_API_KEY"
-          hint="Stored in the daemon's macOS Keychain. It is never sent back to the app."
+          hint="Stored in the macOS Keychain of the daemon machine. The key never goes back to the app."
           placeholder={status.data?.stored ? "Enter a new key to replace the stored one" : "Paste your Bob API key"}
           secureTextEntry
           disabled={!supported || busy}
