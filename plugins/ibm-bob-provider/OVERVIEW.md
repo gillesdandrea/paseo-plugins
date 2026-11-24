@@ -18,6 +18,10 @@ With an API key, the Usage panel shows each Bob team budget: Bobcoins used again
 
 Bob Shell does not report context usage over ACP. The plugin reads it, read-only, from Bob's task database at `~/.bob/db/bob.db` when an agent opens and after each turn. The maximum is the window Bob resolved for the task. An older premium task that has none shows an estimate of 200,000 tokens. The database is Bob's internal format: if a Bob update changes it, the context window stays empty and the agent keeps working.
 
+## Importing Bob sessions
+
+Paseo's import list shows your Bob sessions with their title, folder and first prompt, and its search matches all three. `bob acp` reports only the title and folder, so the plugin reads the first 160 characters of each listed session's first prompt from the same database, read-only. It never reads Bob's system prompt or the rest of the conversation. If the database cannot be read, search matches titles and folders only.
+
 ## Terminal
 
 The first time the plugin starts, it adds an IBM Bob terminal profile that runs `bob chat -- {{{prompt}}}`. It never adds the profile again, so your edits and deletions stay. A Bob profile that an earlier version added, and that you have not edited, is updated to this command.
@@ -28,4 +32,6 @@ Turn the switch off before you remove the plugin, because Paseo does not tell a 
 
 ## Paseo versions
 
-On Paseo 0.17 or later, the provider settings also show Bob's installed version and a link to Bob's install page.
+On Paseo 0.17 or later, the provider settings also show Bob's installed version and a link to Bob's install page. An imported Bob session also shows your prompts and is named after the first one. On Paseo 0.16, it shows Bob's answers and tool calls without your prompts, and it has no name.
+
+Paseo 0.17.4 or later searches up to 500 of your most recent Bob sessions. Earlier versions search the 100 most recent.
