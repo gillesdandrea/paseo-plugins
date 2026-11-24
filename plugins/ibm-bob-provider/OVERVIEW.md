@@ -20,7 +20,7 @@ Bob Shell does not report context usage over ACP. The plugin reads it, read-only
 
 ## Importing Bob sessions
 
-Paseo's import list shows your Bob sessions with their title, folder and first prompt, and its search matches all three. `bob acp` reports only the title and folder, so the plugin reads the first 160 characters of each listed session's first prompt from the same database, read-only. It never reads Bob's system prompt or the rest of the conversation. If the database cannot be read, search matches titles and folders only.
+Paseo's import search matches a Bob session's title, folder and first prompt. Bob Shell lists sessions with only their title and folder, so the plugin reads the first 160 characters of each listed session's first prompt from `~/.bob/db/bob.db`, read-only. It does not read Bob's system prompt or the rest of the conversation. If the database cannot be read, search matches titles and folders only.
 
 ## Terminal
 
@@ -32,6 +32,6 @@ Turn the switch off before you remove the plugin, because Paseo does not tell a 
 
 ## Paseo versions
 
-On Paseo 0.17 or later, the provider settings also show Bob's installed version and a link to Bob's install page. An imported Bob session also shows your prompts and is named after the first one. On Paseo 0.16, it shows Bob's answers and tool calls without your prompts, and it has no name.
+On Paseo 0.17 or later, the provider settings show Bob's installed version and a link to Bob's install page, and an imported Bob session shows your prompts and is named after the first one. On Paseo 0.16, an imported session shows only Bob's answers and tool calls, and has no name.
 
-Paseo 0.17.4 or later searches up to 500 of your most recent Bob sessions. Earlier versions search the 100 most recent.
+Import search covers your 500 most recent Bob sessions on Paseo 0.17.4 or later, and the 100 most recent on earlier versions.
