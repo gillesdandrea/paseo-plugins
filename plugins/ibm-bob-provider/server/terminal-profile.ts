@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { PaseoApi } from "@getpaseo/client";
+import type { PluginHandlerContext } from "@getpaseo/plugin/server";
 
 type TerminalProfile = { id: string; name: string; command: string; args?: string[]; icon?: string };
 
@@ -69,7 +69,7 @@ export function withBobProfile(profiles: readonly TerminalProfile[] | null | und
   return [...current, BOB_TERMINAL_PROFILE];
 }
 
-type ConfigApi = Pick<PaseoApi["config"], "get" | "patch">;
+type ConfigApi = Pick<PluginHandlerContext["paseo"]["config"], "get" | "patch">;
 
 async function ensure(config: ConfigApi, marker: string): Promise<boolean> {
   const offered = existsSync(marker);
