@@ -1,8 +1,10 @@
+import type { AcpConfigureContext } from "@getpaseo/plugin/server/acp";
 import type { ProviderConnection, ProviderEvent, ProviderRegistration } from "@getpaseo/plugin/server/provider";
 import { describe, expect, it } from "vitest";
 import { BOB_MODEL, bobModel, withBobModel, withSessionModel } from "./model-label";
 
-const context = { sessionId: "s1", config: { read: async () => ({}), set: async () => {} } };
+// The transformer reads none of the context, so a stub stands in for the rest of it.
+const context = { sessionId: "s1", config: { read: async () => ({}), set: async () => {} } } as unknown as AcpConfigureContext;
 
 describe("IBM Bob model", () => {
   it("reports one IBM Bob model when Bob reports none, and keeps several as reported", () => {

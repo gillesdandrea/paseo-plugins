@@ -17,6 +17,10 @@ export function createBobProvider(): ProviderRegistration & { installation: Prov
           description: "IBM Bob Shell through its local `bob acp` server",
           icon: "icon.svg",
           command: ["bob", "acp"],
+          // Bob replays a loaded session's history just after `session/load` returns, not before.
+          // Without this wait, Paseo takes the replay for live output and drops the user messages,
+          // so an imported session loses its prompts and its name.
+          acpOptions: { loadReplayQuietPeriodMs: 200 },
           transformers: [bobModel],
         }),
         installation: createBobInstallation(),
