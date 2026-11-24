@@ -60,9 +60,10 @@ export function contextFromTask(row: { costs: unknown; env: unknown }): BobConte
 
 /**
  * Loads `node:sqlite` only when needed, so a Node without it (before 22.5, or 22.12 and earlier
- * without the flag) leaves the context empty instead of failing the whole plugin.
+ * without the flag) leaves the context and the search previews empty instead of failing the whole
+ * plugin.
  */
-function loadSqlite(): typeof import("node:sqlite") | undefined {
+export function loadSqlite(): typeof import("node:sqlite") | undefined {
   try {
     return process.getBuiltinModule?.("node:sqlite");
   } catch {
@@ -92,7 +93,7 @@ export function createBobDbReader(dbPath: string = BOB_DB_PATH): ReadContext {
   };
 }
 
-function nativeSessionId(persistence: ProviderPersistence | undefined): string | undefined {
+export function nativeSessionId(persistence: ProviderPersistence | undefined): string | undefined {
   const data = persistence?.data;
   if (!data || typeof data !== "object" || Array.isArray(data)) return undefined;
   const id = (data as Record<string, unknown>).sessionId;
